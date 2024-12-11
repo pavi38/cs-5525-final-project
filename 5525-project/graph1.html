@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAMHSA Data Visualization</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header id="main-header">
+        <h1>SAMHSA Data Visualizations</h1>
+    </header>
+
+    <div class="container">
+        <!-- First Graph Section -->
+        <div class="graph">
+            <iframe id="quicksight-embed" title="QuickSight Embed"></iframe>
+        </div>
+        
+        <script>
+            async function loadEmbed() {
+                try {
+                    const response = await fetch('http://localhost:5000/api/get-quicksight-url'); // Flask API URL
+                    const data = await response.json();
+                    if (data.embedUrl) {
+                        document.getElementById('quicksight-embed').src = data.embedUrl;
+                    } else {
+                        console.error('Error fetching embed URL:', data.error);
+                    }
+                } catch (error) {
+                    console.error('Error loading QuickSight embed URL:', error);
+                }
+            }
+        
+            loadEmbed();
+        </script>
+        </div>
+
+        <!-- Add more graph sections as needed -->
+    </div>
+
+    <footer>
+        &copy; 2024 SAMHSA
+    </footer>
+
+    <script>
+        const header = document.getElementById('main-header');
+
+        const handleScroll = () => {
+            if (window.scrollY > 50) {
+                header.classList.add('shrink');
+            } else {
+                header.classList.remove('shrink');
+            }
+        };
+
+        const debounce = (func, wait) => {
+            let timeout;
+            return (...args) => {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func(...args), wait);
+            };
+        };
+
+        window.addEventListener('scroll', debounce(handleScroll, 50));
+    </script>
+</body>
+</html>

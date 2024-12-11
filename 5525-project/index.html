@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAMHSA Data Visualization</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(90deg, #005b96, #0073e6, #fff);
+            color: #fff;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        header.shrink {
+            padding: 1rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+            transition: font-size 0.3s ease, padding 0.3s ease;
+        }
+
+        header.shrink h1 {
+            font-size: 1.5rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 16vh auto;
+            padding: 1rem;
+            background: #fff;
+            border-radius: 8px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            flex-grow: 1;
+        }
+
+        .button {
+            display: block;
+            padding: 2.5rem;
+            text-align: center;
+            font-size: 1.5rem;
+            color: #0073e6;
+            background-color: transparent;
+            border: 2px solid #0073e6;
+            border-radius: 8px;
+            text-decoration: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        }
+
+        .button:hover {
+            background-color: #0073e6;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #005b96;
+            color: #fff;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <header id="main-header">
+        <h1>SAMHSA Data Visualizations</h1>
+    </header>
+
+    <div class="container">
+        <a href="graph1.html" class="button">Graph1</a>
+        <a href="mental-health-statistics.html" class="button">Mental Health Statistics</a>
+        <a href="prevention-programs.html" class="button">Prevention Programs</a>
+        <a href="treatment-options.html" class="button">Treatment Options</a>
+    </div>
+
+    <footer>
+        &copy; 2024 SAMHSA
+    </footer>
+
+    <script>
+        const header = document.getElementById('main-header');
+
+        const handleScroll = () => {
+            if (window.scrollY > 50) {
+                header.classList.add('shrink');
+            } else {
+                header.classList.remove('shrink');
+            }
+        };
+
+        const debounce = (func, wait) => {
+            let timeout;
+            return (...args) => {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func(...args), wait);
+            };
+        };
+
+        window.addEventListener('scroll', debounce(handleScroll, 50));
+    </script>
+</body>
+</html>
+
+
